@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .notepad{
+            text-align: center;
+            color: solid black;
+            font-size: 30px;
+            padding-top: 20px;
+        }
+        #text-input{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .buttons{
+            /* background-color: red; */
+            display: flex;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+        }
+        .buttons{
+            display: flex;
+            justify-content: center;
+        }
+        #submittext{
+            background-color: blue;
+            margin-right: 10px;
+        }
+        #cleartext{
+            background-color: darkgreen;
+        }
+    </style>    
+</head>
+<body>
+    <h1 class="notepad">Notepad</h1>
+    <div class="textbox">
+        <textarea id="text-input" rows="32" cols="110"></textarea>
+    </div>
+    <div class="buttons">
+        <div class="submit">
+            <button id="submittext" onclick="saveText()">Submit</button>
+        </div>
+        <div class="clear">
+            <button id="cleartext" onclick="clearSave()">Clear</button>
+        </div>
+    </div>
+    <script>
+        // function to load saved text from local storage -->
+
+        function loadSavedText(){
+            const fileName="File1.txt";
+            const savedText=localStorage.getItem(fileName);
+            if(savedText){
+                document.getElementById('text-input').value=savedText;
+            }
+        }
+        // call the loadSavedText function when the page loads -->
+
+        window.onload=loadSavedText();
+
+        // function to save text in local storage -->
+
+        function saveText(){
+            const textToSave=document.getElementById('text-input').value;
+            if(textToSave.trim()===""){
+                alert("please enter some text to save.");
+                return;
+            }
+            const fileName="File1.txt";
+            localStorage.setItem(fileName,textToSave);
+            alert(`Text save as ${fileName}`);
+        }
+
+        // function to clear the saved text from Local Storage -->
+
+        function clearSave(){
+            const fileName="File1.txt";
+            localStorage.removeItem(fileName);
+            document.getElementById('text-input').value="";
+            alert(`File ${fileName} deleted`);
+        }
+    </script>
+</body>
+</html>
